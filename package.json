@@ -1,0 +1,19 @@
+{
+  "name": "react-flux",
+  "version": "1.0.0",
+  "description": "react+flux app test project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saurabhkpathak/react-flux.git"
+  },
+  "author": "Saurabh Pathak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saurabhkpathak/react-flux/issues"
+  },
+  "homepage": "https://github.com/saurabhkpathak/react-flux#readme"
+}
