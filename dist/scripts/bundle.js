@@ -32838,18 +32838,23 @@ module.exports = App;
 "use strict";
 
 var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var Header = React.createClass({displayName: "Header",
     render: function() {
         return (
-            React.createElement("header", null, "This is a header")
+            React.createElement("header", {className: "clearfix"}, 
+                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "about"}, "About")), 
+                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "app"}, "Home"))
+            )
         );
     }
 })
 
 module.exports = Header;
 
-},{"react":199}],204:[function(require,module,exports){
+},{"react":199,"react-router":29}],204:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32858,8 +32863,7 @@ var Home = React.createClass({displayName: "Home",
     render: function() {
         return (
             React.createElement("div", {className: "jumbotron"}, 
-                React.createElement("h1", null, "This is an Author Details App"), 
-                React.createElement("a", {href: "/#about"}, "About")
+                React.createElement("h1", null, "This is an Post Details App")
             )
         );
     }
@@ -32896,7 +32900,7 @@ var Post = React.createClass({displayName: "Post",
     },
     render: function() {
         return (
-            React.createElement("div", null, 
+            React.createElement("div", {className: "row"}, 
                 this.state.currentPost
             )
         );
