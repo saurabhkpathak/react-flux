@@ -23,7 +23,7 @@ var About = React.createClass({
             });
         });
     },
-    componentDidMount: function() {
+    componentWillMount: function() {
         this.renderAsyncData();
     },
     shouldComponentUpdate: function(nextProps, nextState){
@@ -36,7 +36,7 @@ var About = React.createClass({
                     <p>About Page</p>
                     <ul>
                         {this.state.data.map(function(current) {
-                            return <li key={current.id}>{current.title}</li>
+                            return <li>{current.title}</li>
                         })}
                     </ul>
                 </div>
