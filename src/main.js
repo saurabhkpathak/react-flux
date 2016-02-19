@@ -1,33 +1,9 @@
-$ = jQuery = require('jquery');
+"use strict";
 
 var React = require('react');
-var Home = require('./components/homePage');
-var About = require('./components/aboutPage');
-var Header = require('./components/common/header');
+var Router = require('react-router');
+var routes = require('./routes');
 
-var ApiWrapper = require('./components/api/apiFile');
-
-var App = React.createClass({
-    render: function() {
-        var Child, source = 'http://jsonplaceholder.typicode.com/posts';
-        if (this.props.route === 'about') {
-            Child = About;
-        } else {
-            Child = Home;
-        }
-        return (
-            <div>
-                <Header />
-                <Child source={source} />
-            </div>
-        )
-    }
+Router.run(routes, function(Handler) {
+    React.render(<Handler />, document.getElementById('app'));
 });
-
-function render() {
-    var route = window.location.hash.substr(1);
-    React.render(<App route={route} />, document.getElementById('app'));
-}
-
-window.addEventListener('hashchange', render);
-render();
