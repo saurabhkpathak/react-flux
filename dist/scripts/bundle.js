@@ -32720,6 +32720,8 @@ module.exports = require('./lib/React');
 
 var React = require('react');
 var ApiWrapper = require('../components/api/apiFile');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var About = React.createClass({displayName: "About",
     getInitialState: function() {
@@ -32754,7 +32756,7 @@ var About = React.createClass({displayName: "About",
                     React.createElement("p", null, "About Page"), 
                     React.createElement("ul", null, 
                         this.state.data.map(function(current) {
-                            return React.createElement("li", null, current.title)
+                            return React.createElement("li", null, React.createElement(Link, {to: "post", params: {id: current.id}}, current.title))
                         })
                     )
                 )
@@ -32771,7 +32773,7 @@ var About = React.createClass({displayName: "About",
 
 module.exports = About;
 
-},{"../components/api/apiFile":201,"react":199}],201:[function(require,module,exports){
+},{"../components/api/apiFile":201,"react":199,"react-router":29}],201:[function(require,module,exports){
 "use strict";
 
 $ = jQuery = require('jquery');
@@ -32782,6 +32784,21 @@ Api.getAllPosts = function() {
     var defer = $.Deferred();
     $.ajax({
         url: 'http://jsonplaceholder.typicode.com/posts',
+        method: 'GET'
+    })
+    .success(function(response) {
+        defer.resolve(response);
+    })
+    .error(function(error) {
+        defer.reject(error);
+    });
+    return defer.promise();
+};
+
+Api.getPostById = function(id) {
+    var defer = $.Deferred();
+    $.ajax({
+        url: 'http://jsonplaceholder.typicode.com/posts/' + id,
         method: 'GET'
     })
     .success(function(response) {
@@ -32854,6 +32871,44 @@ module.exports = Home;
 "use strict";
 
 var React = require('react');
+var ApiWrapper = require('./api/apiFile');
+
+var Post = React.createClass({displayName: "Post",
+    getInitialState: function() {
+        return {
+            currentPost: undefined
+        }
+    },
+    getPostDetails: function() {
+        var self = this;
+        ApiWrapper.getPostById(this.props.params.id).done(function(data) {
+            self.setState({
+                currentPost: data
+            });
+        }).fail(function(data) {
+            self.setState({
+                currentPost: data
+            });
+        });
+    },
+    componentWillMount: function() {
+        this.getPostDetails();
+    },
+    render: function() {
+        return (
+            React.createElement("div", null, 
+                this.state.currentPost
+            )
+        );
+    }
+});
+
+module.exports = Post;
+
+},{"./api/apiFile":201,"react":199}],206:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
 var Router = require('react-router');
 var routes = require('./routes');
 
@@ -32861,7 +32916,7 @@ Router.run(routes, function(Handler) {
     React.render(React.createElement(Handler, null), document.getElementById('app'));
 });
 
-},{"./routes":206,"react":199,"react-router":29}],206:[function(require,module,exports){
+},{"./routes":207,"react":199,"react-router":29}],207:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32872,10 +32927,11 @@ var Route = Router.Route;
 var routes = (
     React.createElement(Route, {name: "app", path: "/", handler: require('./components/app')}, 
         React.createElement(DefaultRoute, {handler: require('./components/homePage')}), 
-        React.createElement(Route, {name: "about", handler: require('./components/aboutPage')})
+        React.createElement(Route, {name: "about", handler: require('./components/aboutPage')}), 
+        React.createElement(Route, {name: "post", path: "path/:id", handler: require('./components/postPage')})
     )
 );
 
 module.exports = routes;
 
-},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":204,"react":199,"react-router":29}]},{},[205]);
+},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":204,"./components/postPage":205,"react":199,"react-router":29}]},{},[206]);
