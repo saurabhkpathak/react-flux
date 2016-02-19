@@ -7,6 +7,7 @@ var Home = React.createClass({
         return (
             <div className="jumbotron">
                 <h1>This is an Author Details App</h1>
+                <a href="/#about">About</a>
             </div>
         );
     }
