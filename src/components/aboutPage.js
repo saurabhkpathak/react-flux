@@ -2,6 +2,8 @@
 
 var React = require('react');
 var ApiWrapper = require('../components/api/apiFile');
+var Router = require('react-router');
+var Link = Router.Link;
 
 var About = React.createClass({
     getInitialState: function() {
@@ -36,7 +38,7 @@ var About = React.createClass({
                     <p>About Page</p>
                     <ul>
                         {this.state.data.map(function(current) {
-                            return <li>{current.title}</li>
+                            return <li><Link to='post' params={{id: current.id}}>{current.title}</Link></li>
                         })}
                     </ul>
                 </div>
