@@ -32864,9 +32864,9 @@ var EditUser = React.createClass({displayName: "EditUser",
         return (
             React.createElement("form", null, 
                 React.createElement("label", null, "Name"), 
-                React.createElement("input", {type: "text", placeholder: "Name", className: "form-control"}), 
+                React.createElement("input", {type: "text", placeholder: "Name", className: "form-control", name: "name", value: this.props.user.name, onChange: this.props.onChange}), 
                 React.createElement("label", null, "Phone"), 
-                React.createElement("input", {type: "number", placeholder: "Phone", className: "form-control"}), 
+                React.createElement("input", {type: "text", placeholder: "Phone", className: "form-control", name: "phone", value: this.props.user.phone, onChange: this.props.onChange}), 
                 React.createElement("button", {className: "btn btn-primary"}, "Submit")
             )
         );
@@ -32899,18 +32899,43 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 var EditUser = require('./editUser');
+var ApiWrapper = require('./api/apiFile');
 
 var ManageUser = React.createClass({displayName: "ManageUser",
+    getUserDetails: function() {
+        var self = this;
+        ApiWrapper.getUserById(2).done(function(data) {
+            self.setState({
+                user: data
+            });
+        }).fail(function(data) {
+            self.setState({
+                user: data
+            });
+        });
+    },
+    getInitialState: function() {
+        this.getUserDetails();
+        return {
+            user: {}
+        }
+    },
+    setUser: function(event) {
+        var field = event.target.name;
+        var value = event.target.value;
+        this.state.user[field] = value;
+        this.setState({user: this.state.user});
+    },
     render: function() {
         return (
-            React.createElement(EditUser, null)
+            React.createElement(EditUser, {user: this.state.user, onChange: this.setUser})
         );
     }
 })
 
 module.exports = ManageUser;
 
-},{"./editUser":204,"react":199,"react-router":29}],207:[function(require,module,exports){
+},{"./api/apiFile":201,"./editUser":204,"react":199,"react-router":29}],207:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
