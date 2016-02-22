@@ -4,10 +4,10 @@ $ = jQuery = require('jquery');
 
 var Api = {};
 
-Api.getAllPosts = function() {
+Api.getAllUsers = function() {
     var defer = $.Deferred();
     $.ajax({
-        url: 'http://jsonplaceholder.typicode.com/posts',
+        url: 'http://jsonplaceholder.typicode.com/users',
         method: 'GET'
     })
     .success(function(response) {
@@ -19,10 +19,10 @@ Api.getAllPosts = function() {
     return defer.promise();
 };
 
-Api.getPostById = function(id) {
+Api.getUserById = function(id) {
     var defer = $.Deferred();
     $.ajax({
-        url: 'http://jsonplaceholder.typicode.com/posts/' + id,
+        url: 'http://jsonplaceholder.typicode.com/users/' + id,
         method: 'GET'
     })
     .success(function(response) {

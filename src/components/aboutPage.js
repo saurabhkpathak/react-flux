@@ -13,7 +13,7 @@ var About = React.createClass({
     },
     renderAsyncData: function() {
         var data, self = this;
-        ApiWrapper.getAllPosts().done(function(response) {
+        ApiWrapper.getAllUsers().done(function(response) {
             data = response;
             self.setState({
                 data: data
@@ -38,7 +38,7 @@ var About = React.createClass({
                     <p>About Page</p>
                     <ul>
                         {this.state.data.map(function(current) {
-                            return <li><Link to='post' params={{id: current.id}}>{current.title}</Link></li>
+                            return <li key={current.id}><Link to='user' params={{id: current.id}}>{current.name}</Link></li>
                         })}
                     </ul>
                 </div>
