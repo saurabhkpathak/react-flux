@@ -32845,7 +32845,8 @@ var Header = React.createClass({displayName: "Header",
         return (
             React.createElement("header", {className: "clearfix"}, 
                 React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "about"}, "About")), 
-                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "app"}, "Home"))
+                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "app"}, "Home")), 
+                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "manageUser"}, "User Form"))
             )
         );
     }
@@ -32854,6 +32855,27 @@ var Header = React.createClass({displayName: "Header",
 module.exports = Header;
 
 },{"react":199,"react-router":29}],204:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+
+var EditUser = React.createClass({displayName: "EditUser",
+    render: function() {
+        return (
+            React.createElement("form", null, 
+                React.createElement("label", null, "Name"), 
+                React.createElement("input", {type: "text", placeholder: "Name", className: "form-control"}), 
+                React.createElement("label", null, "Phone"), 
+                React.createElement("input", {type: "number", placeholder: "Phone", className: "form-control"}), 
+                React.createElement("button", {className: "btn btn-primary"}, "Submit")
+            )
+        );
+    }
+});
+
+module.exports = EditUser;
+
+},{"react":199}],205:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32870,7 +32892,25 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":199}],205:[function(require,module,exports){
+},{"react":199}],206:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var Router = require('react-router');
+var Link = Router.Link;
+var EditUser = require('./editUser');
+
+var ManageUser = React.createClass({displayName: "ManageUser",
+    render: function() {
+        return (
+            React.createElement(EditUser, null)
+        );
+    }
+})
+
+module.exports = ManageUser;
+
+},{"./editUser":204,"react":199,"react-router":29}],207:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32911,7 +32951,7 @@ var User = React.createClass({displayName: "User",
 
 module.exports = User;
 
-},{"./api/apiFile":201,"react":199}],206:[function(require,module,exports){
+},{"./api/apiFile":201,"react":199}],208:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32922,7 +32962,7 @@ Router.run(routes, Router.HistoryLocation, function(Handler) {
     React.render(React.createElement(Handler, null), document.getElementById('app'));
 });
 
-},{"./routes":207,"react":199,"react-router":29}],207:[function(require,module,exports){
+},{"./routes":209,"react":199,"react-router":29}],209:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32934,10 +32974,11 @@ var routes = (
     React.createElement(Route, {name: "app", path: "/", handler: require('./components/app')}, 
         React.createElement(DefaultRoute, {handler: require('./components/homePage')}), 
         React.createElement(Route, {name: "about", handler: require('./components/aboutPage')}), 
-        React.createElement(Route, {name: "user", path: "user/:id", handler: require('./components/userPage')})
+        React.createElement(Route, {name: "user", path: "user/:id", handler: require('./components/userPage')}), 
+        React.createElement(Route, {name: "manageUser", path: "edit", handler: require('./components/userForm')})
     )
 );
 
 module.exports = routes;
 
-},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":204,"./components/userPage":205,"react":199,"react-router":29}]},{},[206]);
+},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":205,"./components/userForm":206,"./components/userPage":207,"react":199,"react-router":29}]},{},[208]);
