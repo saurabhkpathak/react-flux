@@ -10,6 +10,7 @@ var Header = React.createClass({
             <header className='clearfix'>
                 <span className="col-md-4"><Link to='about'>About</Link></span>
                 <span className="col-md-4"><Link to='app'>Home</Link></span>
+                <span className="col-md-4"><Link to="manageUser">User Form</Link></span>
             </header>
         );
     }
