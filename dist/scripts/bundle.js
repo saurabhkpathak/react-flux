@@ -32731,7 +32731,7 @@ var About = React.createClass({displayName: "About",
     },
     renderAsyncData: function() {
         var data, self = this;
-        ApiWrapper.getAllPosts().done(function(response) {
+        ApiWrapper.getAllUsers().done(function(response) {
             data = response;
             self.setState({
                 data: data
@@ -32756,7 +32756,7 @@ var About = React.createClass({displayName: "About",
                     React.createElement("p", null, "About Page"), 
                     React.createElement("ul", null, 
                         this.state.data.map(function(current) {
-                            return React.createElement("li", null, React.createElement(Link, {to: "post", params: {id: current.id}}, current.title))
+                            return React.createElement("li", {key: current.id}, React.createElement(Link, {to: "user", params: {id: current.id}}, current.name))
                         })
                     )
                 )
@@ -32780,10 +32780,10 @@ $ = jQuery = require('jquery');
 
 var Api = {};
 
-Api.getAllPosts = function() {
+Api.getAllUsers = function() {
     var defer = $.Deferred();
     $.ajax({
-        url: 'http://jsonplaceholder.typicode.com/posts',
+        url: 'http://jsonplaceholder.typicode.com/users',
         method: 'GET'
     })
     .success(function(response) {
@@ -32795,10 +32795,10 @@ Api.getAllPosts = function() {
     return defer.promise();
 };
 
-Api.getPostById = function(id) {
+Api.getUserById = function(id) {
     var defer = $.Deferred();
     $.ajax({
-        url: 'http://jsonplaceholder.typicode.com/posts/' + id,
+        url: 'http://jsonplaceholder.typicode.com/users/' + id,
         method: 'GET'
     })
     .success(function(response) {
@@ -32820,7 +32820,6 @@ $ = jQuery = require('jquery');
 
 var App = React.createClass({displayName: "App",
     render: function() {
-        var source = 'http://jsonplaceholder.typicode.com/posts';
         return (
             React.createElement("div", null, 
                 React.createElement(Header, null), 
@@ -32863,7 +32862,7 @@ var Home = React.createClass({displayName: "Home",
     render: function() {
         return (
             React.createElement("div", {className: "jumbotron"}, 
-                React.createElement("h1", null, "This is an Post Details App")
+                React.createElement("h1", null, "This is an User Details App")
             )
         );
     }
@@ -32877,37 +32876,40 @@ module.exports = Home;
 var React = require('react');
 var ApiWrapper = require('./api/apiFile');
 
-var Post = React.createClass({displayName: "Post",
+var User = React.createClass({displayName: "User",
     getInitialState: function() {
         return {
-            currentPost: undefined
+            currentUser: {}
         }
     },
-    getPostDetails: function() {
+    getUserDetails: function() {
         var self = this;
-        ApiWrapper.getPostById(this.props.params.id).done(function(data) {
+        ApiWrapper.getUserById(this.props.params.id).done(function(data) {
             self.setState({
-                currentPost: data
+                currentUser: data
             });
         }).fail(function(data) {
             self.setState({
-                currentPost: data
+                currentUser: data
             });
         });
     },
     componentWillMount: function() {
-        this.getPostDetails();
+        this.getUserDetails();
     },
     render: function() {
         return (
             React.createElement("div", {className: "row"}, 
-                this.state.currentPost
+                React.createElement("div", {className: "col-md-12"}, this.state.currentUser.name), 
+                React.createElement("div", {className: "col-md-12"}, this.state.currentUser.phone), 
+                React.createElement("div", {className: "col-md-12"}, this.state.currentUser.username), 
+                React.createElement("div", {className: "col-md-12"}, this.state.currentUser.email)
             )
         );
     }
 });
 
-module.exports = Post;
+module.exports = User;
 
 },{"./api/apiFile":201,"react":199}],206:[function(require,module,exports){
 "use strict";
@@ -32932,10 +32934,10 @@ var routes = (
     React.createElement(Route, {name: "app", path: "/", handler: require('./components/app')}, 
         React.createElement(DefaultRoute, {handler: require('./components/homePage')}), 
         React.createElement(Route, {name: "about", handler: require('./components/aboutPage')}), 
-        React.createElement(Route, {name: "post", path: "path/:id", handler: require('./components/postPage')})
+        React.createElement(Route, {name: "user", path: "user/:id", handler: require('./components/userPage')})
     )
 );
 
 module.exports = routes;
 
-},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":204,"./components/postPage":205,"react":199,"react-router":29}]},{},[206]);
+},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":204,"./components/userPage":205,"react":199,"react-router":29}]},{},[206]);
