@@ -32889,8 +32889,8 @@ var EditUser = React.createClass({displayName: "EditUser",
     render: function() {
         return (
             React.createElement("form", null, 
-                React.createElement(TextInput, {name: "Name", type: "text", placeholder: "Enter Name", onChange: this.props.onChange, value: this.props.user.name}), 
-                React.createElement(TextInput, {name: "Phone", type: "text", placeholder: "Enter Phone", onChange: this.props.onChange, value: this.props.user.phone}), 
+                React.createElement(TextInput, {name: "name", type: "text", placeholder: "Enter Name", onChange: this.props.onChange, value: this.props.user.name}), 
+                React.createElement(TextInput, {name: "phone", type: "text", placeholder: "Enter Phone", onChange: this.props.onChange, value: this.props.user.phone}), 
                 React.createElement("button", {className: "btn btn-primary"}, "Submit")
             )
         );
