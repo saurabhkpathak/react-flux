@@ -32859,14 +32859,38 @@ module.exports = Header;
 
 var React = require('react');
 
+var TextInput = React.createClass({displayName: "TextInput",
+    propTypes: {
+        name: React.PropTypes.string.isRequired,
+        type: React.PropTypes.string.isRequired,
+        placeholder: React.PropTypes.string,
+        onChange: React.PropTypes.func.isRequired,
+        value: React.PropTypes.string
+    },
+    render: function() {
+        return (
+            React.createElement("div", {className: "col-md-12"}, 
+                React.createElement("label", null, this.props.name), 
+                React.createElement("input", {type: this.props.type, placeholder: this.props.placeholder, className: "form-control", name: this.props.name, value: this.props.value, onChange: this.props.onChange})
+            )
+        );
+    }
+});
+
+module.exports = TextInput;
+
+},{"react":199}],205:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var TextInput = require('./common/textInput');
+
 var EditUser = React.createClass({displayName: "EditUser",
     render: function() {
         return (
             React.createElement("form", null, 
-                React.createElement("label", null, "Name"), 
-                React.createElement("input", {type: "text", placeholder: "Name", className: "form-control", name: "name", value: this.props.user.name, onChange: this.props.onChange}), 
-                React.createElement("label", null, "Phone"), 
-                React.createElement("input", {type: "text", placeholder: "Phone", className: "form-control", name: "phone", value: this.props.user.phone, onChange: this.props.onChange}), 
+                React.createElement(TextInput, {name: "Name", type: "text", placeholder: "Enter Name", onChange: this.props.onChange, value: this.props.user.name}), 
+                React.createElement(TextInput, {name: "Phone", type: "text", placeholder: "Enter Phone", onChange: this.props.onChange, value: this.props.user.phone}), 
                 React.createElement("button", {className: "btn btn-primary"}, "Submit")
             )
         );
@@ -32875,7 +32899,7 @@ var EditUser = React.createClass({displayName: "EditUser",
 
 module.exports = EditUser;
 
-},{"react":199}],205:[function(require,module,exports){
+},{"./common/textInput":204,"react":199}],206:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32892,7 +32916,7 @@ var Home = React.createClass({displayName: "Home",
 
 module.exports = Home;
 
-},{"react":199}],206:[function(require,module,exports){
+},{"react":199}],207:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32935,7 +32959,7 @@ var ManageUser = React.createClass({displayName: "ManageUser",
 
 module.exports = ManageUser;
 
-},{"./api/apiFile":201,"./editUser":204,"react":199,"react-router":29}],207:[function(require,module,exports){
+},{"./api/apiFile":201,"./editUser":205,"react":199,"react-router":29}],208:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -32976,18 +33000,18 @@ var User = React.createClass({displayName: "User",
 
 module.exports = User;
 
-},{"./api/apiFile":201,"react":199}],208:[function(require,module,exports){
+},{"./api/apiFile":201,"react":199}],209:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
 var Router = require('react-router');
 var routes = require('./routes');
 
-Router.run(routes, Router.HistoryLocation, function(Handler) {
+Router.run(routes, function(Handler) {
     React.render(React.createElement(Handler, null), document.getElementById('app'));
 });
 
-},{"./routes":209,"react":199,"react-router":29}],209:[function(require,module,exports){
+},{"./routes":210,"react":199,"react-router":29}],210:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -33006,4 +33030,4 @@ var routes = (
 
 module.exports = routes;
 
-},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":205,"./components/userForm":206,"./components/userPage":207,"react":199,"react-router":29}]},{},[208]);
+},{"./components/aboutPage":200,"./components/app":202,"./components/homePage":206,"./components/userForm":207,"./components/userPage":208,"react":199,"react-router":29}]},{},[209]);
