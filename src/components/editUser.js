@@ -1,15 +1,14 @@
 "use strict";
 
 var React = require('react');
+var TextInput = require('./common/textInput');
 
 var EditUser = React.createClass({
     render: function() {
         return (
             <form>
-                <label>Name</label>
-                <input type="text" placeholder="Name" className="form-control" name="name" value={this.props.user.name} onChange={this.props.onChange} />
-                <label>Phone</label>
-                <input type="text" placeholder="Phone" className="form-control" name="phone" value={this.props.user.phone} onChange={this.props.onChange} />
+                <TextInput name="Name" type="text" placeholder="Enter Name" onChange={this.props.onChange} value={this.props.user.name} />
+                <TextInput name="Phone" type="text" placeholder="Enter Phone" onChange={this.props.onChange} value={this.props.user.phone} />
                 <button className="btn btn-primary">Submit</button>
             </form>
         );
