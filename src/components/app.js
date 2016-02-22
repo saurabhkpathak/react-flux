@@ -5,7 +5,6 @@ $ = jQuery = require('jquery');
 
 var App = React.createClass({
     render: function() {
-        var source = 'http://jsonplaceholder.typicode.com/posts';
         return (
             <div>
                 <Header />
