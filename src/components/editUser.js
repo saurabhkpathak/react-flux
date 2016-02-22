@@ -7,8 +7,8 @@ var EditUser = React.createClass({
     render: function() {
         return (
             <form>
-                <TextInput name="Name" type="text" placeholder="Enter Name" onChange={this.props.onChange} value={this.props.user.name} />
-                <TextInput name="Phone" type="text" placeholder="Enter Phone" onChange={this.props.onChange} value={this.props.user.phone} />
+                <TextInput name="name" type="text" placeholder="Enter Name" onChange={this.props.onChange} value={this.props.user.name} />
+                <TextInput name="phone" type="text" placeholder="Enter Phone" onChange={this.props.onChange} value={this.props.user.phone} />
                 <button className="btn btn-primary">Submit</button>
             </form>
         );
