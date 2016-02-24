@@ -34,4 +34,19 @@ Api.getUserById = function(id) {
     return defer.promise();
 };
 
+Api.saveUser = function(user) {
+        var defer = $.Deferred();
+        $.ajax({
+            url: 'http://jsonplaceholder.typicode.com/users/' + user.id,
+            method: 'PUT'
+        })
+        .success(function(response) {
+            defer.resolve(response);
+        })
+        .error(function(error) {
+            defer.reject(error);
+        });
+        return defer.promise();
+};
+
 module.exports = Api;
