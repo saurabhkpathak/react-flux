@@ -31,9 +31,17 @@ var ManageUser = React.createClass({
         this.state.user[field] = value;
         this.setState({user: this.state.user});
     },
+    saveUser: function(event) {
+        event.preventDefault();
+        ApiWrapper.saveUser(this.state.user).done(function() {
+            alert('user saved');
+        }).fail(function() {
+            alert('user save failed');
+        });
+    },
     render: function() {
         return (
-            <EditUser user={this.state.user} onChange={this.setUser} />
+            <EditUser user={this.state.user} onChange={this.setUser} onSave={this.saveUser}/>
         );
     }
 })
