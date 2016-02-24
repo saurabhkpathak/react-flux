@@ -32810,6 +32810,21 @@ Api.getUserById = function(id) {
     return defer.promise();
 };
 
+Api.saveUser = function(user) {
+        var defer = $.Deferred();
+        $.ajax({
+            url: 'http://jsonplaceholder.typicode.com/users/' + user.id,
+            method: 'PUT'
+        })
+        .success(function(response) {
+            defer.resolve(response);
+        })
+        .error(function(error) {
+            defer.reject(error);
+        });
+        return defer.promise();
+};
+
 module.exports = Api;
 
 },{"jquery":3}],202:[function(require,module,exports){
@@ -32891,7 +32906,7 @@ var EditUser = React.createClass({displayName: "EditUser",
             React.createElement("form", null, 
                 React.createElement(TextInput, {name: "name", type: "text", placeholder: "Enter Name", onChange: this.props.onChange, value: this.props.user.name}), 
                 React.createElement(TextInput, {name: "phone", type: "text", placeholder: "Enter Phone", onChange: this.props.onChange, value: this.props.user.phone}), 
-                React.createElement("button", {className: "btn btn-primary"}, "Submit")
+                React.createElement("button", {className: "btn btn-primary", onClick: this.props.onSave}, "Submit")
             )
         );
     }
@@ -32950,9 +32965,17 @@ var ManageUser = React.createClass({displayName: "ManageUser",
         this.state.user[field] = value;
         this.setState({user: this.state.user});
     },
+    saveUser: function(event) {
+        event.preventDefault();
+        ApiWrapper.saveUser(this.state.user).done(function() {
+            alert('user saved');
+        }).fail(function() {
+            alert('user save failed');
+        });
+    },
     render: function() {
         return (
-            React.createElement(EditUser, {user: this.state.user, onChange: this.setUser})
+            React.createElement(EditUser, {user: this.state.user, onChange: this.setUser, onSave: this.saveUser})
         );
     }
 })
