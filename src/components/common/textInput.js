@@ -15,6 +15,7 @@ var TextInput = React.createClass({
             <div className="col-md-12">
                 <label>{this.props.name}</label>
                 <input type={this.props.type} placeholder={this.props.placeholder} className="form-control" name={this.props.name} value={this.props.value} onChange={this.props.onChange} />
+                <div className="input">{this.props.error}</div>
             </div>
         );
     }
