@@ -33193,7 +33193,10 @@ var About = React.createClass({displayName: "About",
                     React.createElement("p", null, "About Page"), 
                     React.createElement("ul", null, 
                         this.state.data.map(function(current) {
-                            return React.createElement("li", {key: current.id}, React.createElement(Link, {to: "user", params: {id: current.id}}, current.name))
+                            return React.createElement("li", {key: current.id}, 
+                                React.createElement(Link, {className: "col-md-4", to: "user", params: {id: current.id}}, current.name), 
+                                React.createElement(Link, {className: "col-md-4", to: "manageUser", params: {id: current.id}}, "Edit User")
+                                )
                         })
                     )
                 )
@@ -33297,8 +33300,7 @@ var Header = React.createClass({displayName: "Header",
         return (
             React.createElement("header", {className: "clearfix"}, 
                 React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "about"}, "About")), 
-                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "app"}, "Home")), 
-                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "manageUser"}, "User Form"))
+                React.createElement("span", {className: "col-md-4"}, React.createElement(Link, {to: "app"}, "Home"))
             )
         );
     }
@@ -33382,7 +33384,7 @@ var toastr = require('toastr');
 var ManageUser = React.createClass({displayName: "ManageUser",
     getUserDetails: function() {
         var self = this;
-        ApiWrapper.getUserById(2).done(function(data) {
+        ApiWrapper.getUserById(this.props.params.id).done(function(data) {
             self.setState({
                 user: data
             });
@@ -33506,7 +33508,7 @@ var routes = (
         React.createElement(DefaultRoute, {handler: require('./components/homePage')}), 
         React.createElement(Route, {name: "about", handler: require('./components/aboutPage')}), 
         React.createElement(Route, {name: "user", path: "user/:id", handler: require('./components/userPage')}), 
-        React.createElement(Route, {name: "manageUser", path: "edit", handler: require('./components/userForm')})
+        React.createElement(Route, {name: "manageUser", path: "edit/:id", handler: require('./components/userForm')})
     )
 );
 
