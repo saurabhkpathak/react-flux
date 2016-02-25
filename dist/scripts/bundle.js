@@ -33323,7 +33323,8 @@ var TextInput = React.createClass({displayName: "TextInput",
         return (
             React.createElement("div", {className: "col-md-12"}, 
                 React.createElement("label", null, this.props.name), 
-                React.createElement("input", {type: this.props.type, placeholder: this.props.placeholder, className: "form-control", name: this.props.name, value: this.props.value, onChange: this.props.onChange})
+                React.createElement("input", {type: this.props.type, placeholder: this.props.placeholder, className: "form-control", name: this.props.name, value: this.props.value, onChange: this.props.onChange}), 
+                React.createElement("div", {className: "input"}, this.props.error)
             )
         );
     }
@@ -33341,8 +33342,8 @@ var EditUser = React.createClass({displayName: "EditUser",
     render: function() {
         return (
             React.createElement("form", null, 
-                React.createElement(TextInput, {name: "name", type: "text", placeholder: "Enter Name", onChange: this.props.onChange, value: this.props.user.name}), 
-                React.createElement(TextInput, {name: "phone", type: "text", placeholder: "Enter Phone", onChange: this.props.onChange, value: this.props.user.phone}), 
+                React.createElement(TextInput, {name: "name", type: "text", placeholder: "Enter Name", onChange: this.props.onChange, value: this.props.user.name, error: this.props.error.name}), 
+                React.createElement(TextInput, {name: "phone", type: "text", placeholder: "Enter Phone", onChange: this.props.onChange, value: this.props.user.phone, error: this.props.error.phone}), 
                 React.createElement("button", {className: "btn btn-primary", onClick: this.props.onSave}, "Submit")
             )
         );
@@ -33394,7 +33395,8 @@ var ManageUser = React.createClass({displayName: "ManageUser",
     getInitialState: function() {
         this.getUserDetails();
         return {
-            user: {}
+            user: {},
+            error: {}
         }
     },
     setUser: function(event) {
@@ -33405,15 +33407,34 @@ var ManageUser = React.createClass({displayName: "ManageUser",
     },
     saveUser: function(event) {
         event.preventDefault();
+        if (!this.isFormValid()) {
+            return;
+        }
         ApiWrapper.saveUser(this.state.user).done(function() {
             toastr.success('user saved');
         }).fail(function() {
             toastr.error('user save failed');
         });
     },
+    isFormValid: function() {
+        var valid = true;
+        this.state.error = {};
+        if (this.state.user.name.length < 3) {
+            this.state.error.name = 'Name cannot be shorted than 3 characters.';
+            valid = false;
+        }
+        if (this.state.user.phone.length !== 10) {
+            this.state.error.phone = 'Phone number cannot be shorted than 10 characters.';
+            valid = false;
+        }
+        this.setState({
+            error: this.state.error
+        });
+        return valid;
+    },
     render: function() {
         return (
-            React.createElement(EditUser, {user: this.state.user, onChange: this.setUser, onSave: this.saveUser})
+            React.createElement(EditUser, {user: this.state.user, onChange: this.setUser, onSave: this.saveUser, error: this.state.error})
         );
     }
 })
