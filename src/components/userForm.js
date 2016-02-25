@@ -10,7 +10,7 @@ var toastr = require('toastr');
 var ManageUser = React.createClass({
     getUserDetails: function() {
         var self = this;
-        ApiWrapper.getUserById(2).done(function(data) {
+        ApiWrapper.getUserById(this.props.params.id).done(function(data) {
             self.setState({
                 user: data
             });
