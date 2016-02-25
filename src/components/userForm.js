@@ -5,6 +5,7 @@ var Router = require('react-router');
 var Link = Router.Link;
 var EditUser = require('./editUser');
 var ApiWrapper = require('./api/apiFile');
+var toastr = require('toastr');
 
 var ManageUser = React.createClass({
     getUserDetails: function() {
@@ -34,9 +35,9 @@ var ManageUser = React.createClass({
     saveUser: function(event) {
         event.preventDefault();
         ApiWrapper.saveUser(this.state.user).done(function() {
-            alert('user saved');
+            toastr.success('user saved');
         }).fail(function() {
-            alert('user save failed');
+            toastr.error('user save failed');
         });
     },
     render: function() {
