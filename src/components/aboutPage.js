@@ -38,7 +38,10 @@ var About = React.createClass({
                     <p>About Page</p>
                     <ul>
                         {this.state.data.map(function(current) {
-                            return <li key={current.id}><Link to='user' params={{id: current.id}}>{current.name}</Link></li>
+                            return <li key={current.id}>
+                                <Link className='col-md-4' to='user' params={{id: current.id}}>{current.name}</Link>
+                                <Link className='col-md-4' to='manageUser' params={{id: current.id}}>Edit User</Link>
+                                </li>
                         })}
                     </ul>
                 </div>
